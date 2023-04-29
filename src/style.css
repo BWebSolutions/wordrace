@@ -1,0 +1,134 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    touch-action: pan-y;
+    text-align:center;
+}
+
+h1 {
+    margin:4px 0 8px 0;
+}
+
+h3 {
+    display: inline;
+    margin: 40px 20px 0 20px;
+}
+
+img {
+    cursor:pointer;
+}
+
+sub {
+    font-size:.5em;
+}
+
+fieldset {
+    padding:0 8px 8px 8px; 
+    width: 336px;
+    min-height: 65px;
+    margin:auto;
+    margin-bottom:14px;
+    border: 1px solid #E6E7E7;
+    border-radius:5px;
+}
+
+@media (max-width: 336px) {
+    fieldset {
+        width: 90%;
+    }
+}
+
+legend{
+    height:20px;
+    text-align:left;
+    color:#79808A;
+    padding-left:4px;
+    letter-spacing:1px;
+}
+
+a {
+    color: #79808A;
+    cursor: pointer;
+    text-decoration:none;
+}
+
+button {
+    font-weight:bold;
+    color: #ffffff;
+    padding: 10px 46px 10px 16px;
+    border:none;
+    margin:5px;
+    margin-bottom:10px;
+    font-size:1.1em;
+    letter-spacing: 1px;
+    background:url('../images/share.svg') no-repeat right;
+    background-color: #478A58; 
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.header {
+    display:flex;
+    justify-content:space-between;
+    border-bottom: 1px #ccc solid;
+}
+
+.tilerack {
+    text-align:left;
+}
+
+.block {
+    display: inline-block;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    width: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+    padding: 4px;
+    cursor: pointer;
+    /*caret-color: transparent;*/
+    color: #fff;
+    background-color: #F0524D;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    -webkit-appearance: none; 
+}
+
+.rack {
+    background-color: #79808A;
+}
+
+.green {
+    background-color: darkgreen;
+}
+
+#legend0{
+    cursor: pointer; 
+    background:url('../images/shuffle.svg') no-repeat left; 
+    padding-left:24px;
+}
+
+#help {
+    visibility: hidden;
+    position:fixed;
+    z-index: 1;
+    background-color:#ffffff;
+    width:100%;
+    height:100vh;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:left;
+}
+
+#shareMessage {
+    color:#0B4e65;
+}
