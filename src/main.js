@@ -16,20 +16,35 @@ xhttp.onreadystatechange = function () {
 xhttp.send();
 
 document.addEventListener('keydown', function(event) {
-    document.getElementById("msg").innerHTML = '';
-    const key = event.key.toUpperCase(); // "a", "1", "Shift", etc.
-    if (rack.includes(key)){
-        document.getElementById("build").innerHTML += 
-            '<div class="block green">' + key + '<div>';
-        document.getElementById("word").innerHTML += key;
-    }
-    if (key == 'ENTER'){
-        checkWord(document.getElementById("word").innerHTML);
-    }
-    if (key == 'BACKSPACE'){
-        clearWord();
-    }
+    if (document.getElementById("timer").innerHTML != 'TIME EXPIRED')
+    {
+        document.getElementById("msg").innerHTML = '';
+        const key = event.key.toUpperCase(); // "a", "1", "Shift", etc.
+        if (rack.includes(key)){
+            document.getElementById("build").innerHTML += 
+                '<div class="block green">' + key + '<div>';
+            document.getElementById("word").innerHTML += key;
+        }
+        if (key == 'ENTER'){
+            checkWord(document.getElementById("word").innerHTML);
+        }
+        if (key == 'BACKSPACE'){
+            var s = document.getElementById("word").innerHTML;
+            document.getElementById("word").innerHTML = s.slice(0, -1);
+            buildIt();
+        }
+    }   
 });
+
+function buildIt(){
+    var string = document.getElementById("word").innerHTML;
+    document.getElementById("build").innerHTML = '';
+
+    for (s of string){
+        document.getElementById("build").innerHTML += 
+            '<div class="block green">' + s + '<div>';
+    }
+}
 
 function loadLetters() {
     var pad = function(num) {return (num < 10 ? '0' : '') + num;};
@@ -42,6 +57,7 @@ function loadLetters() {
 
 function loadRack() {
     document.getElementById("rack").innerHTML = '';
+    rack = '';
     for (let l in letters)
         rack += l;
 
@@ -56,9 +72,9 @@ function loadRack() {
     }
     rack = a.join("");
 
-    for (let i = 0; i < rack.length; i++) {
+    for (r of rack) {
         document.getElementById("rack").innerHTML +=
-            '<div class="block rack">' + rack[i] + '</div>';
+            '<div class="block rack">' + r + '</div>';
     }
 }
 
@@ -83,7 +99,40 @@ function clearWord(){
 
 function displayWordList(){
     document.getElementById("wordList").innerHTML = '';
+    var letters = 0;
     words.sort();
-    for (word of words)
-        document.getElementById("wordList").innerHTML += word + '<br />';
+    for (word of words){
+        document.getElementById("wordList").innerHTML += 
+            '<a href="https://www.merriam-webster.com/dictionary/' + word + '" target="new">' + 
+            word + '<br />';
+        letters += word.length;
+    }
+
+    document.getElementById("legend0").innerHTML = 
+        'Words: ' + words.length + ', Letters: ' + letters;
 }
+
+var i = 181;
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  i--;
+    
+   // Output like "1:01" or "4:03:59" or "123:03:59"
+    let clock = "";
+
+    const mins = Math.floor(i / 60);
+    const secs = i - mins * 60;
+
+    clock += "" + mins + ":" + (secs < 10 ? "0" : "");
+    clock += "" + secs;
+
+  // Output the result in an element with id="demo"
+  document.getElementById("timer").innerHTML = 'Timer: ' + clock;
+    
+  if (i < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "TIME EXPIRED";
+  }
+}, 1000);
