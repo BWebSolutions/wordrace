@@ -132,3 +132,11 @@ button {
 #shareMessage {
     color:#0B4e65;
 }
+
+#keyboard, #keyboard:focus {
+    /*border-width:0px;
+    outline:none;
+    font-size:1px;
+    color:#fff;
+    width:1px;*/
+}

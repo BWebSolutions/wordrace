@@ -15,10 +15,6 @@ xhttp.onreadystatechange = function () {
 };
 xhttp.send();
 
-window.onload = function() {
-  var input = document.getElementById("keyboard").focus();
-}
-
 document.addEventListener('keydown', function(event) {
     if (document.getElementById("timer").innerHTML != 'TIME EXPIRED')
     {
