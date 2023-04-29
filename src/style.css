@@ -134,9 +134,9 @@ button {
 }
 
 #keyboard, #keyboard:focus {
-    /*border-width:0px;
+    border-width:0px;
     outline:none;
     font-size:1px;
     color:#fff;
-    width:1px;*/
+    width:1px;
 }
