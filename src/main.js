@@ -21,9 +21,8 @@ document.addEventListener('keydown', function(event) {
         document.getElementById("msg").innerHTML = '';
         const key = event.key.toUpperCase(); // "a", "1", "Shift", etc.
         if (rack.includes(key)){
-            document.getElementById("build").innerHTML += 
-                '<div class="block green">' + key + '<div>';
             document.getElementById("word").innerHTML += key;
+            buildIt();
         }
         if (key == 'ENTER'){
             checkWord(document.getElementById("word").innerHTML);
@@ -76,6 +75,11 @@ function loadRack() {
         document.getElementById("rack").innerHTML +=
             '<div class="block rack">' + r + '</div>';
     }
+}
+
+function addLetter(l){
+        document.getElementById("word").innerHTML += l;
+        buildIt();
 }
 
 function checkWord(word){
