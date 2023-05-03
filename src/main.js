@@ -84,7 +84,7 @@ function addLetter(l){
 
 function checkWord(word){
     if (words.includes(word)) {
-        document.getElementById("msg").innerHTML = '<strong>' + word + '</strong> was already used<br />';
+        document.getElementById("msg").innerHTML = '<br /><strong>' + word + '</strong> was already used<br />';
     }
     else if (dictionary.includes(word.toLowerCase())) {
         words.push(word);
@@ -92,7 +92,7 @@ function checkWord(word){
         clearWord();
     }
     else {
-        document.getElementById("msg").innerHTML = '<strong>' + word + "</strong> is not a word<br />";
+        document.getElementById("msg").innerHTML = '<br /><strong>' + word + "</strong> is not a word<br />";
     }
 }
 
@@ -138,6 +138,6 @@ var x = setInterval(function() {
   if (i < 0) {
     clearInterval(x);
     document.getElementById("timer").innerHTML = "TIME EXPIRED";
-    document.getElementById("shareBtn").style.visibility = "visible";
+    document.getElementById("shareDiv").style.display = "block";
   }
 }, 1000);
