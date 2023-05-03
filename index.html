@@ -31,15 +31,17 @@
         <legend id="timer"></legend>
         <div id="build" class="tilerack"></div>
     </fieldset>    
-
-    <input type="text" id="keyboard" oninput="this.value='';" /><br />
     
-    <span id="shareMsg"></span>
-    <button id="shareBtn" onclick="share()" style="visibility: hidden;">Share Score</button><br />
+    <div id="shareDiv" style="display: none;">
+        <span id="shareMsg"></span>
+        <button onclick="share()">Share Score</button>
+    </div>
     
-    <span id="msg"></span>
-    <span id="word" style="visibility:hidden;"></span>
+    <span id="msg">test</span>
 
     <div id="wordList"></div>
+
+    <span id="word" style="visibility:hidden;"></span>
+    <br /><input type="text" id="keyboard" oninput="this.value='';" />
 </body>
 </html>
