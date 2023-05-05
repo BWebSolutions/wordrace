@@ -116,28 +116,41 @@ function displayWordList(){
         'Words: ' + words.length + ', Letters: ' + letters;
 }
 
-var i = 181;
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+function startClock(){
+    var i = 181;
 
-  i--;
-    
-   // Output like "1:01" or "4:03:59" or "123:03:59"
-    let clock = "";
+    // Update the count down every 1 second
+    var x = setInterval(function() {
 
-    const mins = Math.floor(i / 60);
-    const secs = i - mins * 60;
+    i--;
+        
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+        let clock = "";
 
-    clock += "" + mins + ":" + (secs < 10 ? "0" : "");
-    clock += "" + secs;
+        const mins = Math.floor(i / 60);
+        const secs = i - mins * 60;
 
-  // Output the result in an element with id="demo"
-  document.getElementById("timer").innerHTML = 'Timer: ' + clock;
-    
-  if (i < 0) {
-    clearInterval(x);
-    document.getElementById("timer").innerHTML = "TIME EXPIRED";
-    document.getElementById("shareDiv").style.display = "block";
-  }
-}, 1000);
+        clock += "" + mins + ":" + (secs < 10 ? "0" : "");
+        clock += "" + secs;
+
+    // Output the result in an element with id="demo"
+    document.getElementById("timer").innerHTML = 'Timer: ' + clock;
+        
+    if (i < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerHTML = "TIME EXPIRED";
+        document.getElementById("shareDiv").style.display = "block";
+    }
+    }, 1000);
+}
+
+function showHelp(b){
+    if (b)
+        document.getElementById('help').style.visibility='visible';
+    else{
+        document.getElementById('help').style.visibility='hidden';
+        startClock();
+        document.getElementById('keyboard').focus();
+    }
+}

@@ -3,7 +3,7 @@
 <head>
     <title>Word Race - Build Your Words. Flex Your Brain.</title>
     <meta charset="UTF-8" />
-    <meta name="description" content="Build as many words in a minute."/>
+    <meta name="description" content="Build as many words in 3 minutes."/>
 
     <script src="src/rack.js"></script>
     <script src="src/main.js"></script>
@@ -13,7 +13,27 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 </head>
-<body onload="document.getElementById('keyboard').focus()">
+<body>
+    <section id="help">
+            <h3>How to play Word Race</h3>
+            <sup><img style="text-align:right; cursor:pointer;" onclick="showHelp(false)" 
+                src="images/close.svg" alt="Close Help" /></sup>
+            <br /><br />
+            <table class="center">
+                <tr>
+                    <td style="line-height:1.7em;">
+                        &#187; You are given 3 minutes to spell as many words as possible.<br />
+                        &#187; The words must consist of letters from your letter rack.<br />
+                        &#187; You may reuse the same letter in a word multiple times.<br />
+                        &#187; After time expires, share your score and compete with friends!<br />
+                        &#187; A new Word Race is available each day.<br />
+                        <!--Contact us: <a href="mailto:hello@dailyscramble.co">hello@dailyscramble.co</a></p-->
+                    </td>
+                </tr>
+            </table>
+            <button style="background-image:none; padding-right:16px;" onclick="showHelp(false)">Play</button>
+    </section>
+
     <div class="header">
         <div>&nbsp;</div>
         <div><h1>Word Race<input type="text" id="keyboard" oninput="this.value='';" /></h1></div>
