@@ -1,48 +1,78 @@
-var dictionary = Array();
-var letters = Array();
-var words = Array();
-var rack = '';
+let dictionary = Array();
+let letters = Array();
+let words = Array();
+let rack = '';
 
-// first load the dictionary file and store it into the dictionary array
-var xhttp = new XMLHttpRequest();
-xhttp.open('GET', 'https://raw.githubusercontent.com/BWebSolutions/word/main/dictionary.json', true);
-xhttp.responseType = 'text';
-xhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-        dictionary = JSON.parse(this.responseText);
-        loadLetters();
-    }
-};
-xhttp.send();
+// Load the dictionary file and store it into the dictionary array
+fetch('https://raw.githubusercontent.com/BWebSolutions/word/main/dictionary.json')
+.then(response => response.json())
+.then(data => {
+    dictionary = data;
+    loadLetters();
+})
+.catch(error => console.error('Error:', error));
+
 
 document.addEventListener('keydown', function(event) {
-    if (document.getElementById("timer").innerHTML != 'TIME EXPIRED')
-    {
-        document.getElementById("msg").innerHTML = '';
-        const key = event.key.toUpperCase(); // "a", "1", "Shift", etc.
-        if (rack.includes(key)){
-            document.getElementById("word").innerHTML += key;
+    const timerElement = document.getElementById("timer");
+    const wordElement = document.getElementById("word");
+    const msgElement = document.getElementById("msg");
+
+    if (timerElement.innerHTML != 'TIME EXPIRED') {
+        msgElement.innerHTML = '';
+        const key = event.key.toUpperCase();
+
+        if (rack.includes(key)) {
+            wordElement.innerHTML += key;
             buildIt();
         }
-        if (key == 'ENTER'){
-            checkWord(document.getElementById("word").innerHTML);
+        if (key == 'ENTER') {
+            checkWord(wordElement.innerHTML);
         }
-        if (key == 'BACKSPACE'){
-            var s = document.getElementById("word").innerHTML;
-            document.getElementById("word").innerHTML = s.slice(0, -1);
+        if (key == 'BACKSPACE') {
+            wordElement.innerHTML = wordElement.innerHTML.slice(0, -1);
             buildIt();
         }
     }   
 });
 
-function buildIt(){
-    var string = document.getElementById("word").innerHTML;
-    document.getElementById("build").innerHTML = '';
 
-    for (s of string){
-        document.getElementById("build").innerHTML += 
-            '<div class="block green">' + s + '<div>';
+function buildIt() {
+    const word = document.getElementById("word").innerHTML;
+    const blocks = [];
+    for (const s of word) {
+        blocks.push('<div class="block green">' + s + '</div>');
     }
+    document.getElementById("build").innerHTML = blocks.join('');
+    console.log(blocks.join(''));
+}
+
+function checkWord(word) {
+    const msgElement = document.getElementById("msg");
+
+    if (words.includes(word)) {
+        msgElement.innerHTML = '<br /><strong>' + word + '</strong> was already used<br />';
+    } else if (dictionary.includes(word.toLowerCase())) {
+        words.push(word);
+        displayWordList();
+        clearWord();
+    } else {
+        msgElement.innerHTML = '<br /><strong>' + word + "</strong> is not a word<br />";
+    }
+}
+
+function displayWordList() {
+    const wordList = [];
+    let letters = 0;
+    words.sort();
+
+    for (const word of words) {
+        wordList.push('<a href="https://www.merriam-webster.com/dictionary/' + word + '" target="new">' + word + '<br />');
+        letters += word.length;
+    }
+
+    document.getElementById("wordList").innerHTML = wordList.join('');
+    document.getElementById("legend0").innerHTML = 'Words: ' + words.length + ', Letters: ' + letters;
 }
 
 function loadLetters() {
@@ -61,7 +91,7 @@ function loadRack() {
         rack += l;
 
     var a = rack.split("");
-    n = a.length;
+    var n = a.length;
 
     for (var i = n - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -70,11 +100,12 @@ function loadRack() {
         a[j] = tmp;
     }
     rack = a.join("");
-
-    for (r of rack) {
-        document.getElementById("rack").innerHTML +=
-            '<div class="block rack">' + r + '</div>';
+    
+    const rackBlocks = [];
+    for (const r of rack) {
+        rackBlocks.push('<div class="block rack">' + r + '</div>');
     }
+    document.getElementById("rack").innerHTML = rackBlocks.join('');
 }
 
 function addLetter(l){
@@ -82,38 +113,9 @@ function addLetter(l){
         buildIt();
 }
 
-function checkWord(word){
-    if (words.includes(word)) {
-        document.getElementById("msg").innerHTML = '<br /><strong>' + word + '</strong> was already used<br />';
-    }
-    else if (dictionary.includes(word.toLowerCase())) {
-        words.push(word);
-        displayWordList();
-        clearWord();
-    }
-    else {
-        document.getElementById("msg").innerHTML = '<br /><strong>' + word + "</strong> is not a word<br />";
-    }
-}
-
 function clearWord(){
     document.getElementById("build").innerHTML = '';
     document.getElementById("word").innerHTML = '';
-}
-
-function displayWordList(){
-    document.getElementById("wordList").innerHTML = '';
-    var letters = 0;
-    words.sort();
-    for (word of words){
-        document.getElementById("wordList").innerHTML += 
-            '<a href="https://www.merriam-webster.com/dictionary/' + word + '" target="new">' + 
-            word + '<br />';
-        letters += word.length;
-    }
-
-    document.getElementById("legend0").innerHTML = 
-        'Words: ' + words.length + ', Letters: ' + letters;
 }
 
 
